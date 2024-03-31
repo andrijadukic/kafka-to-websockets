@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "wskafka"
+version = "0.1.0"
+description = "A simple websocket server that broadcasts messages received from a Kafka topic"
+authors = ["Andrija <andrijaa.dukic@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+websockets = "12.0"
+faststream = "0.4.7"
+streamlit = "1.32.2"
+pydantic = "2.6.4"
+pydantic-settings = "2.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

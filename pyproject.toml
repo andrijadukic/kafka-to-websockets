@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "wskafka"
+name = "broadcaster"
 version = "0.1.0"
 description = "A simple websocket server that broadcasts messages received from a Kafka topic"
 authors = ["Andrija <andrijaa.dukic@gmail.com>"]

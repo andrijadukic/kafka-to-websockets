@@ -12,6 +12,8 @@ faststream = "0.4.7"
 streamlit = "1.32.2"
 pydantic = "2.6.4"
 pydantic-settings = "2.2.1"
+confluent-kafka = "2.3.0"
+faker = "^24.4.0"
 
 
 [build-system]

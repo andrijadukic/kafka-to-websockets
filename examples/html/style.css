@@ -1,0 +1,26 @@
+/* Apply styles to the entire table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Style table header (thead) */
+th {
+    background-color: #009879;
+    color: #ffffff;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+/* Style table cells (td) */
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Add zebra stripes effect to table rows */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

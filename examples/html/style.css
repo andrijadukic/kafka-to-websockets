@@ -1,26 +1,84 @@
+/* style.css */
+
 /* Apply styles to the entire table */
 table {
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    color: #333; /* Dark gray text color */
+    margin: 0 auto; /* Center horizontally */
 }
 
 /* Style table header (thead) */
 th {
-    background-color: #009879;
-    color: #ffffff;
+    background-color: #f9f9f9; /* Light gray background for headers */
+    color: #333; /* Dark gray text color */
     padding: 12px 15px;
     text-align: left;
+    font-weight: bold;
 }
 
 /* Style table cells (td) */
 td {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* Light gray border */
 }
 
 /* Add zebra stripes effect to table rows */
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+tr:nth-child(even) td {
+    background-color: #f9f9f9; /* Light gray background for even rows */
+}
+
+/* Hover effect on rows */
+tr:hover td {
+    background-color: #ffedcc; /* Pale orange background on hover */
+}
+
+/* Center the title */
+h1 {
+    text-align: center;
+    margin-top: 20px; /* Add some spacing above the title */
+    font-family: 'Helvetica', sans-serif; /* Use a modern font */
+    font-weight: 600; /* Make it bold */
+    font-size: 28px; /* Adjust the font size */
+    color: #555; /* Dark gray text color */
+    letter-spacing: 2px; /* Add some letter spacing */
+}
+
+#data-table {
+    opacity: 0.5; /* Initial opacity for slight fading */
+    transition: opacity 0.5s ease;
+}
+
+#data-table.fadeIn {
+    opacity: 1; /* Fading in when button is clicked */
+}
+
+/* Style the play button */
+.play-button {
+    width: 20px;
+    height: 20px;
+    background-color: #555; /* Dark gray background */
+    border: none;
+    border-radius: 50%; /* Rounded shape */
+    color: #fff; /* White icon color */
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add smooth hover effect */
+}
+
+/* Center the button above the table */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Add spacing below the button */
+}
+
+.play-button:hover {
+    background-color: #555; /* Slightly darker on hover */
 }

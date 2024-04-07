@@ -1,7 +1,7 @@
 import asyncio
 import json
 import uuid
-from typing import Any, Set
+from typing import Any
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
 
@@ -22,7 +22,7 @@ settings = Settings()
 
 broker = KafkaBroker(bootstrap_servers=str(settings.bootstrap_servers))
 
-CONNECTIONS: dict[WebSocketServerProtocol, dict[str, Set]] = {}
+CONNECTIONS: dict[WebSocketServerProtocol, dict[str, set]] = {}
 
 
 async def handler(websocket: WebSocketServerProtocol) -> None:
@@ -43,7 +43,7 @@ async def handler(websocket: WebSocketServerProtocol) -> None:
         del CONNECTIONS[websocket]
 
 
-def parse_filter_conditions(path: str) -> dict[str, Set] | None:
+def parse_filter_conditions(path: str) -> dict[str, set] | None:
     """
     Takes a URL path and returns query parameters as a dictionary, where the values of each individual query
     are kept in a set. If the path doesn't contain a query parameter, None is returned instead.
@@ -72,7 +72,7 @@ def parse_filter_conditions(path: str) -> dict[str, Set] | None:
     return filters
 
 
-async def decode_message(msg: KafkaMessage) -> (dict[str, Any], bytes):
+async def decode_message(msg: KafkaMessage) -> tuple[dict[str, Any], bytes]:
     """
     Decodes a KafkaMessage for use in the Kafka handler.
     The message is decoded into a tuple, where the first element is a dictionary (assuming messages are valid JSON).
@@ -96,7 +96,7 @@ async def decode_message(msg: KafkaMessage) -> (dict[str, Any], bytes):
     auto_commit=False,
     decoder=decode_message,
 )
-async def broadcast(msg: (dict[str, Any], bytes)) -> None:
+async def broadcast(msg: tuple[dict[str, Any], bytes]) -> None:
     """
     The entrypoint into the Kafka handler.
     The handler first evaluates the active websocket connections for those that would be interested in
@@ -124,8 +124,8 @@ async def broadcast(msg: (dict[str, Any], bytes)) -> None:
 
 
 def determine_recipients(
-        msg: dict[str, Any], candidates: dict[WebSocketServerProtocol, dict[str, Set]]
-) -> [WebSocketServerProtocol]:
+        msg: dict[str, Any], candidates: dict[WebSocketServerProtocol, dict[str, set]]
+) -> list[WebSocketServerProtocol]:
     """
     Determines the appropriate recipients for the given message, by looking into the filters for each candidate
     websocket connection. If an existing websocket connection doesn't have a filter defined, it's assumed

@@ -11,10 +11,10 @@ websockets = "12.0"
 faststream = "0.4.7"
 pydantic = "2.6.4"
 pydantic-settings = "2.2.1"
+confluent-kafka = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
 faker = "^24.4.0"
-confluent-kafka = "^2.3.0"
 
 [build-system]
 requires = ["poetry-core"]

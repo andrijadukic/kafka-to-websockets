@@ -13,15 +13,10 @@ VIN_POOL = [
     "2D8HN44E49R661441",
     "1GKKRRKD1EJ173860",
     "WBADD6328WGT68767",
-    "5GZEV33718J150902"
+    "5GZEV33718J150902",
 ]
 
-TIRE_POSITIONS = [
-    "front-left",
-    "front-right",
-    "rear-left",
-    "rear-right"
-]
+TIRE_POSITIONS = ["front-left", "front-right", "rear-left", "rear-right"]
 
 
 @dataclass(frozen=True)
@@ -39,12 +34,12 @@ class SensorReading:
             vin=F.random.choice(VIN_POOL),
             tire_position=F.random.choice(TIRE_POSITIONS),
             pressure=round(F.random.uniform(140, 800), 3),
-            temperature=round(F.random.uniform(-10, 70), 3)
+            temperature=round(F.random.uniform(-10, 70), 3),
         )
 
 
 def reading_generator(n: int):
-    for i in range(n):
+    for _ in range(n):
         yield SensorReading.next_random()
 
 
@@ -66,14 +61,14 @@ def main():
                 "vin": reading.vin,
                 "tire_position": reading.tire_position,
                 "pressure": reading.pressure,
-                "temperature": reading.temperature
+                "temperature": reading.temperature,
             }
         )
-        producer.produce(args.topic, value=data)
+        producer.produce(topic=args.topic, value=data)
         time.sleep(args.interval)
 
     producer.flush()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

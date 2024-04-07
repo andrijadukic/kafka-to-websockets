@@ -6,17 +6,90 @@ authors = ["Andrija <andrijaa.dukic@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 websockets = "12.0"
 faststream = "0.4.7"
 pydantic = "2.6.4"
 pydantic-settings = "2.2.1"
-confluent-kafka = "2.3.0"
 
 [tool.poetry.dev-dependencies]
 faker = "^24.4.0"
-
+confluent-kafka = "^2.3.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+ignore_missing_imports = true
+install_types = true
+non_interactive = true
+plugins = ["pydantic.mypy"]
+
+# from https://blog.wolt.com/engineering/2021/09/30/professional-grade-mypy-configuration/
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+show_error_codes = true
+warn_unused_ignores = false
+
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_any_unimported = false
+
+[tool.ruff]
+fix = true
+line-length = 88
+target-version = "py312"
+include = [
+    "broadcaster/**/*.py",
+    "tests/**/*.py",
+    "pyproject.toml",
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors     https://docs.astral.sh/ruff/rules/#error-e
+    "W", # pycodestyle warnings   https://docs.astral.sh/ruff/rules/#warning-w
+    "C90", # mccabe                 https://docs.astral.sh/ruff/rules/#mccabe-c90
+    "N", # pep8-naming            https://docs.astral.sh/ruff/rules/#pep8-naming-n
+    "D", # pydocstyle             https://docs.astral.sh/ruff/rules/#pydocstyle-d
+    "I", # isort                  https://docs.astral.sh/ruff/rules/#isort-i
+    "F", # pyflakes               https://docs.astral.sh/ruff/rules/#pyflakes-f
+    "ASYNC", # flake8-async           https://docs.astral.sh/ruff/rules/#flake8-async-async
+    "C4", # flake8-comprehensions  https://docs.astral.sh/ruff/rules/#flake8-comprehensions-c4
+    "B", # flake8-bugbear         https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
+    "Q", # flake8-quotes          https://docs.astral.sh/ruff/rules/#flake8-quotes-q
+    "T20", # flake8-print           https://docs.astral.sh/ruff/rules/#flake8-print-t20
+    "SIM", # flake8-simplify        https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
+    "PT", # flake8-pytest-style    https://docs.astral.sh/ruff/rules/#flake8-pytest-style-pt
+    "PTH", # flake8-use-pathlib     https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth
+    "TCH", # flake8-type-checking   https://docs.astral.sh/ruff/rules/#flake8-type-checking-tch
+    "RUF", # Ruff-specific rules    https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
+    "PERF", # Perflint               https://docs.astral.sh/ruff/rules/#perflint-perf
+    "UP", # pyupgrade              https://docs.astral.sh/ruff/rules/#pyupgrade-up
+]
+
+ignore = [
+    "E501", # line too long, handled by formatter later
+    "C901", # too complex
+
+    "N817", # CamelCase `*` imported as acronym `*`
+    "N815", # Variable `*` in class scope should not be mixedCase
+    "N803", # Argument name `expandMessageExamples` should be lowercase
+
+    "D100", # missing docstring in public module
+    "D104", # missing docstring in public package
+    "D105", # missing docstring in magic methods
+    "D106", # missing docstring in public nested class
+    "D107", # missing docstring in __init__
+]

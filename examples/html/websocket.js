@@ -3,12 +3,16 @@
 const playButton = document.getElementById("play-button");
 let isPlaying = false;
 
+const vinFilterInput = document.getElementById("vinFilter");
 const table = document.getElementById("data-table");
 
 // Create a global variable to hold the WebSocket connection
 let socket;
+const baseUrl = "ws://localhost:8080/telemetry"
 
 playButton.addEventListener("click", () => {
+    vinFilterInput.disabled = !isPlaying
+
     if (isPlaying) {
         // Pause audio (show play icon)
         playButton.textContent = "▶";
@@ -24,16 +28,22 @@ playButton.addEventListener("click", () => {
         table.classList.add("fadeIn");
 
         // Initialize the websocket connection
-        initializeWebSocket()
+        initializeWebSocket();
     }
     isPlaying = !isPlaying;
 });
 
 function initializeWebSocket() {
-    socket = new WebSocket("ws://localhost:8080/telemetry");
+    let endpoint = baseUrl;
+
+    let vinValue = vinFilterInput.value.trim().toUpperCase();
+    if (vinValue.length !== 0) {
+        endpoint += `?vin=${vinValue}`;
+    }
+    socket = new WebSocket(endpoint);
 
     socket.addEventListener("open", (event) => {
-        console.log("WebSocket connection opened:", event);
+        console.log(`WebSocket connection to ${endpoint} opened:`, event);
     });
 
     socket.addEventListener("message", async (event) => {
@@ -43,8 +53,11 @@ function initializeWebSocket() {
         // Create a new row
         const newRow = document.createElement("tr");
         newRow.innerHTML = `
-        <td>${sensorReading.sensorId}</td>
+        <td>${sensorReading.timestamp}</td>
+        <td>${sensorReading.vin}</td>
+        <td>${sensorReading.tire_position}</td>
         <td>${sensorReading.temperature}</td>
+        <td>${sensorReading.pressure}</td>
     `;
 
         // Append the row to the table

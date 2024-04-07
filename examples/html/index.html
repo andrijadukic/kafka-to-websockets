@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket Table Example</title>
+    <title>Real-time Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Data from WebSocket</h1>
+<h1>Tire Sensor Data</h1>
 <div class="button-container">
-    <button id="play-button", class="play-button">▶</button> <!-- Unicode play icon -->
+    <label for="vinFilter"></label>
+    <input type="text" id="vinFilter" placeholder="Search by VIN...">
+    <button id="play-button" class="play-button">▶</button> <!-- Unicode play icon -->
 </div>
 <table id="data-table">
     <thead>
     <tr>
-        <th>SensorID</th>
-        <th>Temperature</th>
+        <th>Timestamp (ms)</th>
+        <th>VIN</th>
+        <th>Tire Position</th>
+        <th>Temperature (°C)</th>
+        <th>Pressure (kPa)</th>
     </tr>
     </thead>
     <tbody>

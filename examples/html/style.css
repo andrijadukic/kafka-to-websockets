@@ -32,7 +32,7 @@ tr:nth-child(even) td {
 
 /* Hover effect on rows */
 tr:hover td {
-    background-color: #ffedcc; /* Pale orange background on hover */
+    background-color: #cbc3e3; /* Pale orange background on hover */
 }
 
 /* Center the title */
@@ -81,4 +81,20 @@ h1 {
 
 .play-button:hover {
     background-color: #555; /* Slightly darker on hover */
+}
+
+#vinFilter {
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 200px;
+    margin-right: 10px; /* Add spacing between search bar and button */
+    transition: border-color 0.4s ease; /* Smooth transition for border color */
+}
+
+/* Apply pale purple border when the input is focused */
+#vinFilter:focus {
+    border-color: #cbc3e3; /* Pale purple border color */
+    outline: none; /* Remove default focus outline */
 }
